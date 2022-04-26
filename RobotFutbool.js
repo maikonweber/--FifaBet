@@ -41,6 +41,7 @@ class FootBoolScrap {
 
 
         async getPage(page) {
+          
             await page.goto('https://www.bet365.com/#/IP/B1', {waitUntil: 'networkidle2'});
             await page.waitForTimeout(5500);
             // const x = await page.$$('.iip-IntroductoryPopup_Cross')
@@ -104,7 +105,7 @@ class FootBoolScrap {
                 const button = await rat[i].$$(rabbit);
                 try {
                 button[0].click();
-                await page.waitForTimeout(600);
+                await page.waitForTimeout(700);
 
                 let wheelChartArray = []
                
@@ -256,17 +257,21 @@ class FootBoolScrap {
                 obj._2 = box[1];
                 obj._3 = box[2];
                 result.push(obj);
+                page.waitForTimeout(7000);
               };
-
+              console.log(result)
               return result;
+    
+              
         }
 
         async start() {
           const page = await this.init();
           const result =  await this.getPage(page);
-          console.log(result[0].bar)
-          console.log(result[0].wheelChart)
-          console.log(result[0].Card)
+            
+  
+       
+          
         }
 }
 
