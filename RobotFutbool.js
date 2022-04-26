@@ -18,13 +18,12 @@ class FootBoolScrap {
     async init() {
         const browser = await puppeter.launch({
             userDataDir : './userData', 
-            headless: true,
+            headless: false,
             defaultViewport: {
                 width: 1920,
                 height: 1080
             },
             args: [
-                '--use-gl=egl',
                '--no-sandbox',
               '--disable-features=IsolateOrigins,site-per-process',
                 '--disable-extensions',
@@ -44,17 +43,17 @@ class FootBoolScrap {
 
 
         async getPage(page) {
-          
+            console.log('getPage');
             await page.goto('https://www.bet365.com/#/IP/B1', {waitUntil: 'networkidle2'});
             await page.waitForTimeout(20500);
             return page;
-            // const x = await page.$$('.iip-IntroductoryPopup_Cross')
-            // console.log(x)
+          
         
             }
         
         async getScrap(page) {
           setInterval(async () => {
+            console.log('getScrap');
             const element = await page.$$('.ovm-CompetitionList'); // List of all
             const element2 = await page.$$('.ovm-Competition.ovm-Competition-open ');
             let own = '.ovm-FixtureDetailsTwoWay.ovm-FixtureDetailsTwoWay-1' // Time and score
