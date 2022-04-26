@@ -6,7 +6,7 @@ const FootBoolScrap = require('./RobotFutbool.js');
 (async () => {
 console.log('start');
 const footBoolScrap = new FootBoolScrap();
-    console.log('start');
+console.log('start');
 await footBoolScrap.start();
 })();
 // curl -X GET http://api.football-data.org/v2/competitions/

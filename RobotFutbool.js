@@ -24,6 +24,7 @@ class FootBoolScrap {
                 height: 1080
             },
             args: [
+              '--use-gl=egl',
                '--no-sandbox',
               '--disable-features=IsolateOrigins,site-per-process',
                 '--disable-extensions',
