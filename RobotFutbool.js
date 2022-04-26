@@ -46,7 +46,6 @@ class FootBoolScrap {
         async getPage(page) {
             console.log('getPage');
             await page.goto('https://www.bet365.com/#/IP/B1', {waitUntil: 'networkidle2'});
-            await page.waitForTimeout(20500);
             return page;
           
         
@@ -291,7 +290,7 @@ class FootBoolScrap {
           const page = await this.init();
           const page2 =  await this.getPage(page);
           const result = await this.getScrap(page2);
-          console.log(result)
+          await console.log(result)
         }
       }
 
