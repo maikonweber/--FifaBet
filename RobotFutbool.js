@@ -18,16 +18,17 @@ class FootBoolScrap {
     async init() {
         const browser = await puppeter.launch({
             userDataDir : './userData', 
-            headless: true,
+            headless: false,
             defaultViewport: {
-              width: 1220,
-              height: 980
+                width: 1920,
+                height: 1080
             },
             args: [
-              '--disable-web-security',
+              '--proxy-server=socks5://127.0.0.1:9050',
+              '--no-sandbox',
               '--disable-features=IsolateOrigins,site-per-process',
                 '--disable-extensions',
-                "--window-size=1220,880",
+                "--window-size=1520,980",
                 "--window-position=0,0",
 
             ],  
@@ -45,7 +46,7 @@ class FootBoolScrap {
         async getPage(page) {
           
             await page.goto('https://www.bet365.com/#/IP/B1', {waitUntil: 'networkidle2'});
-            await page.waitForTimeout(5500);
+            await page.waitForTimeout(30500);
             return page;
             // const x = await page.$$('.iip-IntroductoryPopup_Cross')
             // console.log(x)
@@ -147,7 +148,6 @@ class FootBoolScrap {
                   barInside2.forEach(async (element, index) => {
                     let bar = await element.getProperty('innerText');
                     let barText = await bar.jsonValue();
-                    console.log(barText)
                     if (index == 0) {
                       Bar.NoAlvoAway = barText
                     }
@@ -286,13 +286,17 @@ class FootBoolScrap {
         async start() {
           const page = await this.init();
           const page2 =  await this.getPage(page);
-          const result = await this.getData(page2);
+          const result = await this.getScrap(page2);
+          await page2.close(); 
+          console.log(result)
           return result;
         }
       }
 
+    const footBoolScrap = new FootBoolScrap();
+  footBoolScrap.start();
+
+
 
 module.exports = FootBoolScrap;
 
-// const footBoolScrap = new FootBoolScrap();
-// footBoolScrap.start();
