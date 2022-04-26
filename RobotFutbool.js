@@ -18,7 +18,7 @@ class FootBoolScrap {
     async init() {
         const browser = await puppeter.launch({
             userDataDir : './userData', 
-            headless: false,
+            headless: true,
             defaultViewport: {
               width: 1220,
               height: 980
