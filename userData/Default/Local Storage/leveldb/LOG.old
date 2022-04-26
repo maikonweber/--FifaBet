@@ -1,3 +1,5 @@
-2022/04/20-17:14:09.541 5003 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/FootBalFifa/userData/Default/Local Storage/leveldb/MANIFEST-000001
-2022/04/20-17:14:09.542 5003 Recovering log #3
-2022/04/20-17:14:09.543 5003 Reusing old log /Users/maikonweberdecarvalho/Desktop/FootBalFifa/userData/Default/Local Storage/leveldb/000003.log 
+2022/04/25-22:21:54.132 2938 Reusing MANIFEST C:\Users\Maikon\Desktop\projetos\automatebet\Fifabet\userData\Default\Local Storage\leveldb/MANIFEST-000001
+2022/04/25-22:21:54.135 2938 Recovering log #3
+2022/04/25-22:21:54.135 2938 (ignoring error) C:\Users\Maikon\Desktop\projetos\automatebet\Fifabet\userData\Default\Local Storage\leveldb/000003.log: dropping 24115 bytes; Corruption: checksum mismatch
+2022/04/25-22:21:54.135 2938 (ignoring error) C:\Users\Maikon\Desktop\projetos\automatebet\Fifabet\userData\Default\Local Storage\leveldb/000003.log: dropping 236 bytes; Corruption: missing start of fragmented record(2)
+2022/04/25-22:21:54.137 2938 Reusing old log C:\Users\Maikon\Desktop\projetos\automatebet\Fifabet\userData\Default\Local Storage\leveldb/000003.log 

@@ -17,15 +17,15 @@ class FootBoolScrap {
             userDataDir : './userData', 
             headless: false,
             defaultViewport: {
-              width: 920,
-              height: 580
+              width: 1220,
+              height: 980
             },
             args: [
               '--disable-web-security',
               '--disable-features=IsolateOrigins,site-per-process',
                 '--disable-extensions',
-                "--window-size=920,680",
-                "--window-position=500,0",
+                "--window-size=1220,880",
+                "--window-position=0,0",
 
             ],  
             devTools: true, 
@@ -40,34 +40,75 @@ class FootBoolScrap {
 
 
         async getPage(page) {
-            await page.goto('https://www.bet365.com/#/IP/B151', {waitUntil: 'networkidle2'});
+            await page.goto('https://www.bet365.com/#/IP/B1', {waitUntil: 'networkidle2'});
+            await page.waitForTimeout(5500);
+            // const x = await page.$$('.iip-IntroductoryPopup_Cross')
+            // console.log(x)
+            const element = await page.$$('.ovm-CompetitionList');
+            const element2 = await page.$$('.ovm-Competition.ovm-Competition-open ');
+            let own =  await element.$$('.ovm-FixtureDetailsTwoWay.ovm-FixtureDetailsTwoWay-1')
+            let wolf = await element.$$('.ovm-HorizontalMarket ')  
+            let tigre = await element.$$('.ovm-StandardScores_ScoresWrapper')
+            let elefant = await element.$$('.ovm-FixtureDetailsTwoWay_PeriodWrapper');
+            var result = [];
+            var obj = {
+                TimeOne : '',
+                TimeTwo : '',
+                Time: '',
+                ScoreOne: '',
+                ScoreTwo: '',
+                _1 : '',
+                _2 : '',
+                _3 : '',
+            };
+            setInterval(async () => {
+            element2.forEach(async element => {      
+              await element.$$('.ovm-HorizontalMarket').then(async (e) => {
+                  e.forEach(async element => {
+                     let timeOne = await 
+                      let timeTwo = await
+                      let scoreOne = await
+                      let scoreTwo = await
+                      let time = await
+                      let _1 = await
+                      let _2 = await
+                      let _3 = await
+                      
+                  })
+              });
 
-            // get Content with cheerio
-            const content = await page.content();
-            const $ = cheerio.load(content);
-            const class2 = $('.ovm-Competition ovm-Competition-open');
 
-         
-            setInterval( async () => {
-                
-            await page.$$('.ovm-Fixture_Container').then(async (el) => {
-                el.forEach(async (element, index) => {
-                    console.log(index)
-                    const content = await element.getProperty('innerText');
-                    const text = await content.jsonValue();
-                    console.log(text);
+                own.forEach(async element => {
+                    let text = await element.getProperty('textContent');
+                    let text2 = await text.jsonValue();
+                    obj.game = text2;
                     
-                })
+                })|
+                wolf.forEach(async element => {
+                    let deer = [] 
+                    let cat = element.$$('.ovm-HorizontalMarket_Participant.ovm-ParticipantOddsOnly.gl-Participant_General ')
+                    cat.forEach(async element => {
+                        let text = await element.getProperty('textContent');
+                        let text2 = await text.jsonValue();
+                        deer.push(text2)                        
+                      })
+
+                    obj.gol = deer;
+                    result.push(obj)
             })
+          })
 
+            console.table(result)
 
-        }, 5000);
+          }, 15000);
+       
+     
         }
 
         async start() {
            const page = await this.init();
            const page2 =  await this.getPage(page);
-              await page.waitFor(5000);
+
         }
 }
 
