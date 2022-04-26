@@ -24,7 +24,7 @@ class FootBoolScrap {
                 height: 1080
             },
             args: [
-            
+                '--use-gl=egl',
                '--no-sandbox',
               '--disable-features=IsolateOrigins,site-per-process',
                 '--disable-extensions',
@@ -263,7 +263,8 @@ class FootBoolScrap {
                 obj._3 = box[2];
                 result.push(obj);
               };
-              
+
+              console.log(result)
               return result;
 
             }, 100000);
@@ -290,7 +291,7 @@ class FootBoolScrap {
           const page = await this.init();
           const page2 =  await this.getPage(page);
           const result = await this.getScrap(page2);
-          return result;
+          console.log(result)
         }
       }
 
