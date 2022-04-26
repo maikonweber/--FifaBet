@@ -52,7 +52,6 @@ class FootBoolScrap {
             }
         
         async getScrap(page) {
-          setInterval(async () => {
             console.log('getScrap');
             const element = await page.$$('.ovm-CompetitionList'); // List of all
             const element2 = await page.$$('.ovm-Competition.ovm-Competition-open ');
@@ -266,7 +265,7 @@ class FootBoolScrap {
               console.log(result)
               return result;
 
-            }, 100000);
+        
 
         }
 
