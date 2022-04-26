@@ -1,5 +1,0 @@
-2022/04/26-21:42:40.063 1729 Creating DB /root/SportBet/FifaBet/userData/Default/Local Storage/leveldb since it was missing.
-2022/04/26-21:42:40.068 1729 Recovering log #19
-2022/04/26-21:42:40.071 1729 Delete type=3 #1
-2022/04/26-21:42:40.071 1729 Delete type=0 #19
-2022/04/26-21:42:40.071 1729 Delete type=2 #9
