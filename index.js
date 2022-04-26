@@ -1,11 +1,11 @@
 const axios = require('axios'); 
 const FootBoolScrap = require('./RobotFutbool');
 
-const url = 'https://check.torproject.org/';
 
-const obj = new FootBoolScrap('maikonwdc', 'ma128sio4', url);
-obj.start().then(result => {
+const footBoolScrap = new FootBoolScrap();
+footBoolScrap.start().then(result => {
     console.log(result);
+
 });
 
 

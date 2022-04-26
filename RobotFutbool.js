@@ -46,7 +46,7 @@ class FootBoolScrap {
         async getPage(page) {
           
             await page.goto('https://www.bet365.com/#/IP/B1', {waitUntil: 'networkidle2'});
-            await page.waitForTimeout(30500);
+            await page.waitForTimeout(20500);
             return page;
             // const x = await page.$$('.iip-IntroductoryPopup_Cross')
             // console.log(x)
@@ -54,6 +54,7 @@ class FootBoolScrap {
             }
         
         async getScrap(page) {
+          setInterval(async () => {
             const element = await page.$$('.ovm-CompetitionList'); // List of all
             const element2 = await page.$$('.ovm-Competition.ovm-Competition-open ');
             let own = '.ovm-FixtureDetailsTwoWay.ovm-FixtureDetailsTwoWay-1' // Time and score
@@ -265,6 +266,8 @@ class FootBoolScrap {
               
               return result;
 
+            }, 100000);
+
         }
 
      
@@ -287,16 +290,9 @@ class FootBoolScrap {
           const page = await this.init();
           const page2 =  await this.getPage(page);
           const result = await this.getScrap(page2);
-          await page2.close(); 
-          console.log(result)
           return result;
         }
       }
-
-    const footBoolScrap = new FootBoolScrap();
-  footBoolScrap.start();
-
-
 
 module.exports = FootBoolScrap;
 
