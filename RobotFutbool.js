@@ -18,14 +18,14 @@ class FootBoolScrap {
     async init() {
         const browser = await puppeter.launch({
             userDataDir : './userData', 
-            headless: false,
+            headless: true,
             defaultViewport: {
                 width: 1920,
                 height: 1080
             },
             args: [
-              '--proxy-server=socks5://127.0.0.1:9050',
-              '--no-sandbox',
+            
+               '--no-sandbox',
               '--disable-features=IsolateOrigins,site-per-process',
                 '--disable-extensions',
                 "--window-size=1520,980",
