@@ -5,6 +5,8 @@ const path = require('path');
 const cheerio = require('cheerio');
 const moment = require('moment');
 const { table } = require('console');
+const redis = require('redis');
+
 
 class FootBoolScrap {
     constructor(password, username) {
@@ -44,8 +46,13 @@ class FootBoolScrap {
           
             await page.goto('https://www.bet365.com/#/IP/B1', {waitUntil: 'networkidle2'});
             await page.waitForTimeout(5500);
+            return page;
             // const x = await page.$$('.iip-IntroductoryPopup_Cross')
             // console.log(x)
+        
+            }
+        
+        async getScrap(page) {
             const element = await page.$$('.ovm-CompetitionList'); // List of all
             const element2 = await page.$$('.ovm-Competition.ovm-Competition-open ');
             let own = '.ovm-FixtureDetailsTwoWay.ovm-FixtureDetailsTwoWay-1' // Time and score
@@ -61,9 +68,6 @@ class FootBoolScrap {
             let rabbit = '.ovm-MediaIconContainer_Buttons '
             let apple = '.lv-LiveTabViewContainer '
 
-
-
-              // Container Statisct   
             let wheelChart = '.ml-WheelChart ' 
             // Inside WheelChart
               let chartText =  '.ml-WheelChart_Text '
@@ -257,24 +261,38 @@ class FootBoolScrap {
                 obj._2 = box[1];
                 obj._3 = box[2];
                 result.push(obj);
-                page.waitForTimeout(7000);
               };
-              console.log(result)
-              return result;
-    
               
+              return result;
+
         }
+
+     
+          async publisher(message) {
+
+            const publish = redis.createClient({
+              host: 'localhost',
+              port: 6379,
+              password: "roullet" 
+            });
+          
+            
+            await publish.connect();
+            await publish.publish('bet365events', message);
+          
+        }
+
 
         async start() {
           const page = await this.init();
-          const result =  await this.getPage(page);
-            
-  
-       
-          
+          const page2 =  await this.getPage(page);
+          const result = await this.getData(page2);
+          return result;
         }
-}
+      }
 
 
-const footBoolScrap = new FootBoolScrap();
-footBoolScrap.start();
+module.exports = FootBoolScrap;
+
+// const footBoolScrap = new FootBoolScrap();
+// footBoolScrap.start();
