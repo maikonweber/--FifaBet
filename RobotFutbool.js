@@ -6,7 +6,8 @@ const cheerio = require('cheerio');
 const moment = require('moment');
 const { table } = require('console');
 const redis = require('redis');
-const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+const console = require('console');
 puppeteer.use(StealthPlugin())
 
 class FootBoolScrap {
@@ -90,8 +91,11 @@ class FootBoolScrap {
             var result = [];
             const rat = await element[0].$$('.ovm-Fixture.ovm-Fixture-horizontal.ovm-Fixture-media ');
 
-            // For loop to get all the data
-            for (let i = 10; i < rat.length; i++) {
+              // Get last 6 element of arrray rat
+              const last6 = rat.slice(-6);
+
+
+            for (let i = 0; i < last6.length; i++) {
               
               var obj = {
                 TimeOne : '',
@@ -109,7 +113,7 @@ class FootBoolScrap {
             // Get the time and score
               
               
-                const button = await rat[i].$$(rabbit);
+                const button = await last6[i].$$(rabbit);
                 try {
                 button[0].click();
                 await page.waitForTimeout(700);
@@ -216,11 +220,11 @@ class FootBoolScrap {
 
               
                 
-                const element = await rat[i].$(own);
-                const element2 = await rat[i].$(tigre)
-                const element3 = await rat[i].$(elefant)
-                const element4 = await rat[i].$(leon)
-                const element5 = await rat[i].$$(bear)
+                const element = await last6[i].$(own);
+                const element2 = await last6[i].$(tigre)
+                const element3 = await last6[i].$(elefant)
+                const element4 = await last6[i].$(leon)
+                const element5 = await last6[i].$$(bear)
                
               
                 let rino = await element.$$(fish);
@@ -262,14 +266,15 @@ class FootBoolScrap {
                 obj._1 = box[0];
                 obj._2 = box[1];
                 obj._3 = box[2];
+                await this.publisher(JSON.stringify(obj));
                 result.push(obj);
+              
               };
 
               console.log(result)
               return result;
 
         
-
         }
 
      
@@ -292,9 +297,10 @@ class FootBoolScrap {
           const page = await this.init();
           const page2 =  await this.getPage(page);
           const result = await this.getScrap(page2);
-          await console.log(JSON.parse(result))
-          await page2.close();
-        }
+          this.browser.close();
+          result.forEach(async (element) => {
+            console.log(element)
+          });
       }
 
 module.exports = FootBoolScrap;
