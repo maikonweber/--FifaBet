@@ -1,4 +1,4 @@
-const puppeter = require('puppeteer');
+const puppeteer = require('puppeteer-extra')
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
@@ -6,7 +6,8 @@ const cheerio = require('cheerio');
 const moment = require('moment');
 const { table } = require('console');
 const redis = require('redis');
-
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+puppeteer.use(StealthPlugin())
 
 class FootBoolScrap {
     constructor(password, username) {
@@ -16,19 +17,19 @@ class FootBoolScrap {
     }
 
     async init() {
-        const browser = await puppeter.launch({
-            userDataDir : './userData', 
-            headless: true,
+        const browser = await puppeteer.launch({
+            headless: false,
             defaultViewport: {
                 width: 1920,
                 height: 1080
             },
+            slowMo: 50,
             args: [
-              '--use-gl=egl',
-               '--no-sandbox',
+              // '--use-gl=egl',
+              '--no-sandbox',
               '--disable-features=IsolateOrigins,site-per-process',
                 '--disable-extensions',
-                "--window-size=1520,980",
+                "--window-size=1920,1020",
                 "--window-position=0,0",
 
             ],  
@@ -46,6 +47,8 @@ class FootBoolScrap {
         async getPage(page) {
             console.log('getPage');
             await page.goto('https://www.bet365.com/#/IP/B1', {waitUntil: 'networkidle2'});
+            await page.screenshot({path: './bet365.png'});
+            await page.waitForSelector('.iip-IntroductoryPopup_Cross')
             return page;
           
         
@@ -88,7 +91,7 @@ class FootBoolScrap {
             const rat = await element[0].$$('.ovm-Fixture.ovm-Fixture-horizontal.ovm-Fixture-media ');
 
             // For loop to get all the data
-            for (let i = 0; i < rat.length; i++) {
+            for (let i = 10; i < rat.length; i++) {
               
               var obj = {
                 TimeOne : '',
@@ -289,7 +292,8 @@ class FootBoolScrap {
           const page = await this.init();
           const page2 =  await this.getPage(page);
           const result = await this.getScrap(page2);
-          await console.log(result)
+          await console.log(JSON.parse(result))
+          await page2.close();
         }
       }
 
