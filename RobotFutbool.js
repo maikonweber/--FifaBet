@@ -14,10 +14,17 @@ class FootBoolScrap {
     constructor(password, username) {
         this.password = password;
         this.username = username;
-   
+        this.redis = redis;
+
     }
 
     async init() {
+        this.redis = redis.createClient({
+            host: 'localhost',
+            port: 6379,
+            password: "roullet"
+        });
+        
         const browser = await puppeteer.launch({
             headless: true,
             defaultViewport: {
@@ -267,31 +274,14 @@ class FootBoolScrap {
                 obj._2 = box[1];
                 obj._3 = box[2];
               
-                result.push(obj);
+                this.redis = await this.redis.set(`${obj.Time} / ${obj.Time}`, JSON.stringify(obj)); 
               
+
               };
-
-              console.log(result)
-              return result;
-
-        
         }
 
      
-          async publisher(message) {
-
-            const publish = redis.createClient({
-              host: 'localhost',
-              port: 6379,
-              password: "roullet" 
-            });
           
-            
-            await publish.connect();
-            await publish.publish('bet365events', message);
-          
-        }
-
 
         async start() {
           const page = await this.init();

@@ -2,7 +2,7 @@ const redis = require('redis');
 const Telegram = require('telegram-node-bot');
 
 
-const chatbot = new Telegram.Telegram(`5189315995:AAF7Ei5ozq6kHLSZTWHS_Xjy0ku-u-cxmfc`, {
+const chatbot = new Telegram.Telegram(``, {
     polling: true
 });
 
@@ -24,8 +24,7 @@ const subscriber = client.duplicate();
   await subscriber.connect();
   let possible = false;
   await subscriber.subscribe('bet365events', async  (message) => {
-    let data = JSON.parse(message);   
-    chatbot.sendMessage(-632467313,  data);
+    
     
 
     });
