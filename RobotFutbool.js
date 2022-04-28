@@ -274,9 +274,8 @@ class FootBoolScrap {
                 obj._2 = box[1];
                 obj._3 = box[2];
               
-                this.redis = await this.redis.set(`${obj.Time} / ${obj.Time}`, JSON.stringify(obj)); 
-              
-
+                this.redis = await this.redis.set(`${obj.Time}/${obj.Time}`, JSON.stringify(obj)); 
+                
               };
         }
 
@@ -288,11 +287,6 @@ class FootBoolScrap {
           const page2 =  await this.getPage(page);
           const result = await this.getScrap(page2);
           await this.browser.close();
-          result.forEach(async (element) => {
-            console.log(element)
-            await this.publisher(JSON.stringify(element));
-            
-          });
      
         }
       } 

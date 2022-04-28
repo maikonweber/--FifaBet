@@ -8,24 +8,16 @@ const chatbot = new Telegram.Telegram(``, {
 
 
 
-
-
-
 const client = redis.createClient({
     host: 'localhost',
     port: 6379,
     password: "roullet" 
   });
 
-const subscriber = client.duplicate();
-
 (async () => {
+  // Query all the keys
+  const keys = await client.keysAsync('*');
+  console.log(keys);
+  
 
-  await subscriber.connect();
-  let possible = false;
-  await subscriber.subscribe('bet365events', async  (message) => {
-    
-    
-
-    });
 })();
