@@ -1,10 +1,11 @@
 var cron = require('node-cron');
 const  FootBoolScrap = require('./RobotFutbool.js');
 
-cron.schedule('*/4 * * * *', async () => {
-    console.log('running a task every minute');
-    const footBoolScrap = new FootBoolScrap(maikonwdc, ma128sio4, 'https://www.futbool.com/');
-    const result = await footBoolScrap.start();
-    console.log(result);
+cron.schedule('3 * * * * *', async () => {
+    console.log('start');
+    const footBoolScrap = new FootBoolScrap();
+    console.log('start');
+    await footBoolScrap.start();
     
 });
+    

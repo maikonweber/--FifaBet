@@ -19,7 +19,7 @@ class FootBoolScrap {
 
     async init() {
         const browser = await puppeteer.launch({
-            headless: false,
+            headless: true,
             defaultViewport: {
                 width: 1920,
                 height: 1080
@@ -266,7 +266,7 @@ class FootBoolScrap {
                 obj._1 = box[0];
                 obj._2 = box[1];
                 obj._3 = box[2];
-                await this.publisher(JSON.stringify(obj));
+              
                 result.push(obj);
               
               };
@@ -297,11 +297,15 @@ class FootBoolScrap {
           const page = await this.init();
           const page2 =  await this.getPage(page);
           const result = await this.getScrap(page2);
-          this.browser.close();
+          await this.browser.close();
           result.forEach(async (element) => {
             console.log(element)
+            await this.publisher(JSON.stringify(element));
+            
           });
-      }
+     
+        }
+      } 
 
 module.exports = FootBoolScrap;
 
